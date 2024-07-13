@@ -8,3 +8,4 @@ _out/*
 kubeconfig
 oc
 manifests/generated/*
+wasp
