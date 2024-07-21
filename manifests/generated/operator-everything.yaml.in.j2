@@ -118,7 +118,7 @@ spec:
         - name: AVERAGE_WINDOW_SIZE_SECONDS
           value: {{ average_window_size_seconds }}
         - name: VERBOSITY
-          value: "3"
+          value: "1"
         - name: FSROOT
           value: /host
         - name: NODE_NAME
@@ -137,6 +137,8 @@ spec:
         volumeMounts:
         - mountPath: /host
           name: host
+        - mountPath: /rootfs
+          name: rootfs
       hostPID: true
       hostUsers: true
       priorityClassName: system-node-critical
@@ -146,6 +148,9 @@ spec:
       - hostPath:
           path: /
         name: host
+      - hostPath:
+          path: /
+        name: rootfs
   updateStrategy:
     rollingUpdate:
       maxSurge: 0

@@ -112,20 +112,20 @@ spec:
         - name: MEMORY_AVAILABLE_THRESHOLD
           value: 150Mi
         - name: MAX_AVERAGE_SWAP_IN_PAGES_PER_SECOND
-          value: "1000000"
+          value: "10000"
         - name: MAX_AVERAGE_SWAP_OUT_PAGES_PER_SECOND
-          value: "1000000"
+          value: "10000"
         - name: AVERAGE_WINDOW_SIZE_SECONDS
           value: "30"
         - name: VERBOSITY
-          value: "3"
+          value: "1"
         - name: FSROOT
           value: /host
         - name: NODE_NAME
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
-        image: registry:5000/wasp:latest
+        image: quay.io/ibezukh/wasp:latest
         imagePullPolicy: Always
         name: wasp-agent
         resources:
@@ -137,6 +137,8 @@ spec:
         volumeMounts:
         - mountPath: /host
           name: host
+        - mountPath: /rootfs
+          name: rootfs
       hostPID: true
       hostUsers: true
       priorityClassName: system-node-critical
@@ -146,6 +148,9 @@ spec:
       - hostPath:
           path: /
         name: host
+      - hostPath:
+          path: /
+        name: rootfs
   updateStrategy:
     rollingUpdate:
       maxSurge: 0
